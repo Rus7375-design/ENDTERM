@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  project-spring:
+    image: 'maratkarim/simple-spring-boot-project-marat'
+    container_name: 'marat-spring-project'
+    depends_on:
+      - marat-spring-database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://marat-spring-database:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+    ports:
+      - 7007:8080
+
+  marat-spring-database:
+    image: 'postgres'
+    container_name: 'marat-spring-database'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - 2345:5432
